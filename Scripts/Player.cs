@@ -4,7 +4,7 @@ using UnityEngine;
 
 [RequireComponent (typeof(PlayerController))]
 [RequireComponent (typeof(GunController))]
-public class Player : MonoBehaviour
+public class Player : LivingEntity
 {
    [SerializeField] private float playerSpeed;
     PlayerController playerController;
@@ -12,8 +12,9 @@ public class Player : MonoBehaviour
     GunController gunController;
 
     // Start is called before the first frame update
-    void Start()
+   protected override void Start()
     {
+        base.Start();
         playerController = GetComponent<PlayerController>();
         gunController = GetComponent<GunController>();
         viewCamera = Camera.main;
