@@ -37,7 +37,7 @@ public class Player : LivingEntity
         if (groundPlane.Raycast(ray, out rayDistance))
         {
             Vector3 Point = ray.GetPoint(rayDistance);
-            Debug.DrawLine(ray.origin, Point, Color.red);
+            //Debug.DrawLine(ray.origin, Point, Color.red);
             playerController.LookAt(Point);
         }
 

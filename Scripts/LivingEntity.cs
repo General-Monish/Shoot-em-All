@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,7 +8,7 @@ public class LivingEntity : MonoBehaviour,IDamagable
   [SerializeField]  public float startingHealth;
   [SerializeField]  protected float Health;
     protected bool dead;
-
+    public event Action onDeath;
     public void TakeHit(float damage, RaycastHit hit)
     {
         Health -= damage;
@@ -20,6 +21,10 @@ public class LivingEntity : MonoBehaviour,IDamagable
     private void die()
     {
         dead = true;
+        if (onDeath != null)
+        {
+            onDeath();
+        }
         GameObject.Destroy(gameObject);
     }
 
