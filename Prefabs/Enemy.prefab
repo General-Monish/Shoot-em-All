@@ -147,3 +147,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingHealth: 5
   Health: 0
+  Playerdamage: 1

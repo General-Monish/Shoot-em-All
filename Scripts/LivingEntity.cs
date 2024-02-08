@@ -11,11 +11,7 @@ public class LivingEntity : MonoBehaviour,IDamagable // Interface
     public event Action onDeath; // Event
     public void TakeHit(float damage, RaycastHit hit)
     {
-        Health -= damage;
-        if (Health <= 0 && !dead)
-        {
-            die();
-        }
+        TakeDamage(damage);
     }
 
     private void die()
@@ -38,5 +34,14 @@ public class LivingEntity : MonoBehaviour,IDamagable // Interface
     void Update()
     {
         
+    }
+
+    public void TakeDamage(float damage)
+    {
+        Health -= damage;
+        if (Health <= 0 && !dead)
+        {
+            die();
+        }
     }
 }
