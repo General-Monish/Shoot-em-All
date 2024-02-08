@@ -610,7 +610,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bed94aed92af2342b1e35944db31906, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingHealth: 5
+  startingHealth: 2
   Health: 0
   playerSpeed: 5
 --- !u!114 &1417791220
@@ -736,7 +736,7 @@ Transform:
   m_GameObject: {fileID: 1417791217}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.65, y: 1, z: -2.13}
+  m_LocalPosition: {x: -4.18, y: 1, z: 3.98}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -790,8 +790,6 @@ MonoBehaviour:
   waves:
   - enemyCount: 3
     timeBetweenSpawn: 1
-  - enemyCount: 5
-    timeBetweenSpawn: 0.5
   enemy: {fileID: 8349934656397697192, guid: 3f508667f7500ce478e7629e5c5ec4fd, type: 3}
 --- !u!4 &1425594351
 Transform:
@@ -802,7 +800,7 @@ Transform:
   m_GameObject: {fileID: 1425594349}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -2.33, y: 0, z: -4.07}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

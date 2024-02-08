@@ -38,7 +38,7 @@ public class Enemy : LivingEntity
         {
             currentState = State.chasing;
             hasTarget = true;
-            target = GameObject.FindGameObjectWithTag("Player").transform; // finding target
+            target = GameObject.FindGameObjectWithTag("Player").transform; // finding target pos
             targetEntity = target.GetComponent<LivingEntity>();
             targetEntity.onDeath += TargetEntity_onDeath; // death event
 
@@ -63,8 +63,8 @@ public class Enemy : LivingEntity
         {
             if (Time.time > nextAttackTime)
             {
-                float sqDistanceToTarget = (target.position - transform.position).sqrMagnitude;
-                if (sqDistanceToTarget < Mathf.Pow(attackDistanceThreashold + myCollisionRadius + targetCollisionRadius, 2))
+                float sqDistanceToTarget = (target.position - transform.position).sqrMagnitude; //squared distance 
+                if (sqDistanceToTarget < Mathf.Pow(attackDistanceThreashold + myCollisionRadius + targetCollisionRadius, 2)) // sum of squared dist+ collision
                 {
                     nextAttackTime = Time.time + timeBetweenAttack;
                     StartCoroutine(Attack());
@@ -92,7 +92,7 @@ public class Enemy : LivingEntity
 
         while (percent <= 1)
         {
-            if (percent >= .5f && !hasAppliedDamage) // when reached 50% close to enemy then give damage to target
+            if (percent >= .5f && !hasAppliedDamage) // when reached 50% close to target then give damage to target
             {
                 hasAppliedDamage = true;
                 targetEntity.TakeDamage(Playerdamage);

@@ -8,7 +8,7 @@ public class Projectile : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private float damage;
     float lifeTime=1.5f;
-    float enemySkinWidth = .1f; // when enemy is oving rapidly then the bullet can pass through the collision and it wont give damage so making this so it detects b4 only
+    float enemySkinWidth = .1f; // when enemy is moving rapidly then the bullet can pass through the collision and it wont give damage so making this so it detects b4 only
     public LayerMask collisionMask;
     public void SetSpeed(float newSpeed)
     {
@@ -25,7 +25,8 @@ public class Projectile : MonoBehaviour
         }
 
     }
-
+    
+    
     // Update is called once per frame
     void Update()
     {
