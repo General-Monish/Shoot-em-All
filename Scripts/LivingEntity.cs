@@ -3,12 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LivingEntity : MonoBehaviour,IDamagable
+public class LivingEntity : MonoBehaviour,IDamagable // Interface
 {
   [SerializeField]  public float startingHealth;
   [SerializeField]  protected float Health;
     protected bool dead;
-    public event Action onDeath;
+    public event Action onDeath; // Event
     public void TakeHit(float damage, RaycastHit hit)
     {
         Health -= damage;
