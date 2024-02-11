@@ -31,8 +31,9 @@ public class MapGenerator : MonoBehaviour
 
     public void GenerateMap()
     {
-        System.Random randomMapGenerator = new System.Random(CurrentMap.seed);
         CurrentMap = maps[mapIndex];
+        System.Random randomMapGenerator = new System.Random(CurrentMap.seed);
+        GetComponent<BoxCollider>().size = new Vector3(CurrentMap.mapSize.x * tileSize, 0.05f, CurrentMap.mapSize.y * tileSize);
 
         // Generating Cordinates 
         allTileCoords = new List<Cordinate>();
@@ -87,6 +88,12 @@ public class MapGenerator : MonoBehaviour
                 Transform newObstacle = Instantiate(obstaclePrefab, obstaclePosition + Vector3.up *obsHeight/2, Quaternion.identity) as Transform;
                 newObstacle.parent = mapHolder;
                 newObstacle.localScale = new Vector3((1 - outlinePercent) * tileSize, obsHeight, (1 - outlinePercent) * tileSize);
+
+                Renderer obsRenderer = newObstacle.GetComponent<Renderer>();
+                Material obsMaterial = new Material(obsRenderer.sharedMaterial);
+                float colorPercent = randomCoord.y / (float)CurrentMap.mapSize.y;
+                obsMaterial.color = Color.Lerp(CurrentMap.foreGroundColor, CurrentMap.backeGroundColor, colorPercent);
+                obsRenderer.sharedMaterial = obsMaterial;
             }
             else
             {
@@ -97,21 +104,21 @@ public class MapGenerator : MonoBehaviour
 
         // Creating NevMesh Mask
 
-        Transform maskLeft = Instantiate(nevmeshMaskPrefab, Vector3.left * (CurrentMap.mapSize.x + maxMapSize.x) / 4 * tileSize, Quaternion.identity) as Transform;
+        Transform maskLeft = Instantiate(nevmeshMaskPrefab, Vector3.left * (CurrentMap.mapSize.x + maxMapSize.x) / 4f * tileSize, Quaternion.identity) as Transform;
         maskLeft.parent = mapHolder;
-        maskLeft.localScale = new Vector3((maxMapSize.x - CurrentMap.mapSize.x) / 2, 1, CurrentMap.mapSize.y) * tileSize;
+        maskLeft.localScale = new Vector3((maxMapSize.x - CurrentMap.mapSize.x) / 2f, 1, CurrentMap.mapSize.y) * tileSize;
 
-        Transform maskright = Instantiate(nevmeshMaskPrefab, Vector3.right * (CurrentMap.mapSize.x + maxMapSize.x) / 4 * tileSize, Quaternion.identity) as Transform;
+        Transform maskright = Instantiate(nevmeshMaskPrefab, Vector3.right * (CurrentMap.mapSize.x + maxMapSize.x) / 4f * tileSize, Quaternion.identity) as Transform;
         maskright.parent = mapHolder;
-        maskright.localScale = new Vector3((maxMapSize.x -CurrentMap.mapSize.x) / 2, 1, CurrentMap.mapSize.y) * tileSize;
+        maskright.localScale = new Vector3((maxMapSize.x -CurrentMap.mapSize.x) / 2f, 1, CurrentMap.mapSize.y) * tileSize;
 
-        Transform masktop = Instantiate(nevmeshMaskPrefab, Vector3.forward * (CurrentMap.mapSize.y + maxMapSize.y) / 4 * tileSize, Quaternion.identity) as Transform;
+        Transform masktop = Instantiate(nevmeshMaskPrefab, Vector3.forward * (CurrentMap.mapSize.y + maxMapSize.y) / 4f * tileSize, Quaternion.identity) as Transform;
         masktop.parent = mapHolder;
-        masktop.localScale = new Vector3(maxMapSize.x, 1, (maxMapSize.y -CurrentMap.mapSize.y) / 2) * tileSize;
+        masktop.localScale = new Vector3(maxMapSize.x, 1, (maxMapSize.y -CurrentMap.mapSize.y) / 2f) * tileSize;
 
-        Transform maskbottom = Instantiate(nevmeshMaskPrefab, Vector3.back * (CurrentMap.mapSize.y + maxMapSize.y) / 4 * tileSize, Quaternion.identity) as Transform;
+        Transform maskbottom = Instantiate(nevmeshMaskPrefab, Vector3.back * (CurrentMap.mapSize.y + maxMapSize.y) / 4f * tileSize, Quaternion.identity) as Transform;
         maskbottom.parent = mapHolder;
-        maskbottom.localScale = new Vector3(maxMapSize.x, 1, (maxMapSize.y -CurrentMap.mapSize.y) / 2) * tileSize;
+        maskbottom.localScale = new Vector3(maxMapSize.x, 1, (maxMapSize.y -CurrentMap.mapSize.y) / 2f) * tileSize;
 
         floor.localScale = new Vector3(maxMapSize.x, maxMapSize.y) * tileSize;
 
@@ -158,7 +165,7 @@ public class MapGenerator : MonoBehaviour
 
     Vector3 CoordToPosition(int x, int y)
     {
-        return new Vector3(-CurrentMap.mapSize.x / 2 + 0.5f + x, 0, -CurrentMap.mapSize.y / 2 + 0.5f + y)*tileSize;
+        return new Vector3(-CurrentMap.mapSize.x / 2f + 0.5f + x, 0, -CurrentMap.mapSize.y / 2f + 0.5f + y)*tileSize;
     }
 
     public Cordinate GetRandomCoord()
