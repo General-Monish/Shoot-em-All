@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Playables;
+using UnityEngine.UIElements;
 
 public class MapGenerator : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class MapGenerator : MonoBehaviour
     public Transform floor;
     public Transform nevmeshMaskPrefab;
     public Vector2 maxMapSize;
+    Transform[,] tileMap;
     
 
     [Range(0, 1)]
@@ -20,6 +22,7 @@ public class MapGenerator : MonoBehaviour
 
     List<Cordinate> allTileCoords;
     Queue<Cordinate> shuffledTileCoords;
+    Queue<Cordinate> shuffledOpenTileCoords;
 
     public float tileSize;
     Map CurrentMap;
@@ -32,6 +35,7 @@ public class MapGenerator : MonoBehaviour
     public void GenerateMap()
     {
         CurrentMap = maps[mapIndex];
+        tileMap = new Transform[CurrentMap.mapSize.x, CurrentMap.mapSize.y];
         System.Random randomMapGenerator = new System.Random(CurrentMap.seed);
         GetComponent<BoxCollider>().size = new Vector3(CurrentMap.mapSize.x * tileSize, 0.05f, CurrentMap.mapSize.y * tileSize);
 
@@ -65,6 +69,7 @@ public class MapGenerator : MonoBehaviour
                 Transform newTile = Instantiate(tilePrefab, tilePosition, Quaternion.Euler(Vector3.right * 90)) as Transform;
                 newTile.localScale = Vector3.one * (1 - outlinePercent)*tileSize;
                 newTile.parent = mapHolder;
+                tileMap[x, y] = newTile;
             }
         }
 
@@ -73,6 +78,7 @@ public class MapGenerator : MonoBehaviour
 
         int obstacleCount = (int)(CurrentMap.mapSize.x * CurrentMap.mapSize.y * CurrentMap.obsPercent);
         int currentObstacleCount = 0;
+        List<Cordinate> allOpenCordinate = new List<Cordinate>(allTileCoords);
 
         for (int i = 0; i < obstacleCount; i++)
         {
@@ -94,6 +100,7 @@ public class MapGenerator : MonoBehaviour
                 float colorPercent = randomCoord.y / (float)CurrentMap.mapSize.y;
                 obsMaterial.color = Color.Lerp(CurrentMap.foreGroundColor, CurrentMap.backeGroundColor, colorPercent);
                 obsRenderer.sharedMaterial = obsMaterial;
+                allOpenCordinate.Remove(randomCoord);
             }
             else
             {
@@ -101,6 +108,7 @@ public class MapGenerator : MonoBehaviour
                 currentObstacleCount--;
             }
         }
+        shuffledOpenTileCoords = new Queue<Cordinate>(Utlity.ShuffleArray(allOpenCordinate.ToArray(), CurrentMap.seed));
 
         // Creating NevMesh Mask
 
@@ -168,11 +176,26 @@ public class MapGenerator : MonoBehaviour
         return new Vector3(-CurrentMap.mapSize.x / 2f + 0.5f + x, 0, -CurrentMap.mapSize.y / 2f + 0.5f + y)*tileSize;
     }
 
+    public Transform GetTileFromPos(Vector3 position)
+    {
+        int x = Mathf.RoundToInt(position.x / tileSize + (CurrentMap.mapSize.x - 1) / 2f);
+        int y = Mathf.RoundToInt(position.z / tileSize + (CurrentMap.mapSize.y - 1) / 2f);
+        x = Mathf.Clamp(x, 0, tileMap.GetLength(0)-1);
+        y = Mathf.Clamp(y, 0, tileMap.GetLength(1)-1);
+        return tileMap[x, y];
+    }
     public Cordinate GetRandomCoord()
     {
         Cordinate randomCoord = shuffledTileCoords.Dequeue();
         shuffledTileCoords.Enqueue(randomCoord);
         return randomCoord;
+    }
+
+    public Transform GetRandomOpenTile()
+    {
+        Cordinate randomCoord = shuffledOpenTileCoords.Dequeue();
+        shuffledOpenTileCoords.Enqueue(randomCoord);
+        return tileMap[randomCoord.x, randomCoord.y];
     }
 
     [System.Serializable]
