@@ -21,7 +21,7 @@ public class Projectile : MonoBehaviour
         Collider[] initialCollision = Physics.OverlapSphere(transform.position, 0.1f,collisionMask);
         if (initialCollision.Length > 0)
         {
-            OnHitCollider(initialCollision[0]);
+            OnHitCollider(initialCollision[0],transform.position);
         }
 
     }
@@ -42,28 +42,17 @@ public class Projectile : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, movedistance + enemySkinWidth, collisionMask, QueryTriggerInteraction.Collide))
         {
-            OnHitObject(hit);
+            OnHitCollider(hit.collider,hit.point);
         }
 
     }
-    void OnHitObject(RaycastHit hit)
-    {
-        IDamagable damagableObject = hit.collider.GetComponent<IDamagable>();
-        if (damagableObject != null)
-        {
-            damagableObject.TakeHit(damage, hit);
-        }
-        //Debug.Log(hit.collider.gameObject.name);
-        GameObject.Destroy(gameObject);
-    }
-
-    void OnHitCollider(Collider collider)
+    void OnHitCollider(Collider collider,Vector3 hitPoint)
     {
         // when enemy gets too close then the raycast pass through them without damage so made this method to avoid this problem
         IDamagable damagableObject = collider.GetComponent<IDamagable>();
         if (damagableObject != null)
         {
-            damagableObject.TakeDamage(damage);
+            damagableObject.TakeHit(damage,hitPoint,transform.forward);
         }
         //Debug.Log(hit.collider.gameObject.name);
         GameObject.Destroy(gameObject);

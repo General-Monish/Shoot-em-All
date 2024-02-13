@@ -3,17 +3,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LivingEntity : MonoBehaviour,IDamagable // Interface
+public class LivingEntity : MonoBehaviour, IDamagable // Interface
 {
-  [SerializeField]  public float startingHealth;
-  [SerializeField]  protected float Health;
+    [SerializeField] public float startingHealth;
+    [SerializeField] protected float Health;
     protected bool dead;
     public event Action onDeath; // Event
-    public void TakeHit(float damage, RaycastHit hit)
+
+    protected virtual void Start()
+    {
+        Health = startingHealth;
+    }
+    public virtual void TakeHit(float damage, Vector3 hitPoint, Vector3 hitDirection)
     {
         TakeDamage(damage);
     }
 
+
+
+
+
+public virtual void TakeDamage(float damage)
+    {
+        Health -= damage;
+        if (Health <= 0 && !dead)
+        {
+            die();
+        }
+    }
     private void die()
     {
         dead = true;
@@ -22,26 +39,5 @@ public class LivingEntity : MonoBehaviour,IDamagable // Interface
             onDeath();
         }
         GameObject.Destroy(gameObject);
-    }
-
-    // Start is called before the first frame update
-    protected virtual void Start()
-    {
-        Health = startingHealth;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public void TakeDamage(float damage)
-    {
-        Health -= damage;
-        if (Health <= 0 && !dead)
-        {
-            die();
-        }
     }
 }

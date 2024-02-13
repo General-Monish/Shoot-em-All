@@ -9,7 +9,7 @@ public class Enemy : LivingEntity
 {
     public enum State { idle,chasing,attacking};
     State currentState;
-
+    public ParticleSystem enemyDeathEffect;
     NavMeshAgent pathFinder;
     Transform target;
     LivingEntity targetEntity;
@@ -48,6 +48,15 @@ public class Enemy : LivingEntity
             StartCoroutine(UpdatePath());
         }
      
+    }
+
+    public override void TakeHit(float damage, Vector3 hitPoint, Vector3 hitDirection)
+    {
+        if (damage >= Health)
+        {
+          Destroy(Instantiate(enemyDeathEffect.gameObject, hitPoint, Quaternion.FromToRotation(Vector3.forward, hitDirection)) as GameObject,enemyDeathEffect.startLifetime);
+        }
+        base.TakeHit(damage, hitPoint, hitDirection);
     }
 
     private void TargetEntity_onDeath()

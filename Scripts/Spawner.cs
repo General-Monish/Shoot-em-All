@@ -25,6 +25,7 @@ public class Spawner : MonoBehaviour
     Vector3 campPosHOld;
     bool isCamping;
     bool isDisabled;
+    public event Action<int> OnNewWave;
 
     private void Start()
     {
@@ -98,6 +99,11 @@ public class Spawner : MonoBehaviour
         }
     }
 
+    void ResetPlayerPos()
+    {
+        playerTrans.position = map.GetTileFromPos(Vector3.zero).position + Vector3.up*3;
+    }
+
     void NextWave()
     {
         currentWaveNumber++;
@@ -107,7 +113,13 @@ public class Spawner : MonoBehaviour
 
             enemiesRemainngToSpawn = currentWave.enemyCount;
             enemiesRemainingAlive = enemiesRemainngToSpawn;
+            if (OnNewWave != null)
+            {
+                OnNewWave(currentWaveNumber);
+            }
+            ResetPlayerPos();
         }
+
 
     }
 
