@@ -131,15 +131,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1323261467236780278}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.001, y: 0.05799998, z: 0.9409998}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2509725859169713323}
   - {fileID: 5568925875721925363}
   - {fileID: 8384516476157062045}
-  m_Father: {fileID: 2572317635410374830}
+  m_Father: {fileID: 7120349679266266414}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1656060355204652409
 GameObject:
@@ -334,6 +334,68 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &2762198048811887415
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3854802223967662467}
+  m_Layer: 0
+  m_Name: shotPoint (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3854802223967662467
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2762198048811887415}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.01449182, y: -0.07106116, z: 0.19929534, w: 0.9772521}
+  m_LocalPosition: {x: -0.137, y: 0.05799998, z: 0.941}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7120349679266266414}
+  m_LocalEulerAnglesHint: {x: 0, y: -8.318, z: 23.053}
+--- !u!1 &3335399933711329908
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5259125918743696298}
+  m_Layer: 0
+  m_Name: shotPoint (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5259125918743696298
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3335399933711329908}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.0064136623, y: 0.16767848, z: -0.045820057, w: 0.9847555}
+  m_LocalPosition: {x: 0.097, y: 0.05799998, z: 0.941}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7120349679266266414}
+  m_LocalEulerAnglesHint: {x: 1.604, y: 19.256, z: -5.056}
 --- !u!1 &4744643600565267923
 GameObject:
   m_ObjectHideFlags: 0
@@ -672,8 +734,7 @@ Transform:
   m_LocalPosition: {x: 0.001, y: 0.05799998, z: 0.941}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 6657130437875097439}
+  m_Children: []
   m_Father: {fileID: 7120349679266266414}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7411881813410389829
@@ -773,8 +834,11 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6756475763535844979}
-  - {fileID: 2572317635410374830}
+  - {fileID: 6657130437875097439}
   - {fileID: 9034972271626138882}
+  - {fileID: 2572317635410374830}
+  - {fileID: 5259125918743696298}
+  - {fileID: 3854802223967662467}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6387587067418418383
@@ -789,11 +853,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61d1603e0c000604282fccd8fb85b1b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shotPoint: {fileID: 2572317635410374830}
+  fireMode: 1
+  projectileSpawn:
+  - {fileID: 2572317635410374830}
+  - {fileID: 5259125918743696298}
+  - {fileID: 3854802223967662467}
   projectile: {fileID: 5822875583481019224, guid: f584a3df59926864dbd3a8d730fd3056,
     type: 3}
   msBetweenShots: 100
   ShootVelocity: 10
+  burstCount: 3
   shell: {fileID: 3410832035581102426, guid: 3558a941aa675c94d8fe875b6f87d36a, type: 3}
   shellEjection: {fileID: 9034972271626138882}
 --- !u!114 &3404714929117008214

@@ -44,8 +44,14 @@ public class Player : LivingEntity
         //Waepon Input
         if (Input.GetMouseButton(0))
         {
-            gunController.shoot();
+            gunController.OntriggerHold();
         }
+        
+        if (Input.GetMouseButtonUp(0)) // up means when releasing the mouse button
+        {
+            gunController.OntriggerReleased();
+        }
+        
     }
 
 }
