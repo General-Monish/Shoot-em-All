@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
+    public bool devMode;
     public wave[] waves;
     public Enemy enemy;
     wave currentWave;
@@ -44,7 +45,7 @@ public class Spawner : MonoBehaviour
     {
         if (!isDisabled)
         {
-            if (enemiesRemainngToSpawn > 0 && Time.time > nextSpawnTime)
+            if ((enemiesRemainngToSpawn > 0 || currentWave.infinite) && Time.time > nextSpawnTime)
             {
                 enemiesRemainngToSpawn--;
                 nextSpawnTime = Time.time + currentWave.timeBetweenSpawn;
@@ -52,8 +53,21 @@ public class Spawner : MonoBehaviour
 
             }
         }
+        if (devMode)
+        {
+            if (Input.GetKey(KeyCode.Space))
+            {
+                StopCoroutine("SpawnEnemy");
+                foreach(Enemy enemy in FindObjectsOfType<Enemy>())
+                {
+                    GameObject.Destroy(enemy.gameObject);
+                }
+                NextWave();
+            }
+        }
         
     }
+
 
     IEnumerator SpawnEnemy()
     {
@@ -81,8 +95,10 @@ public class Spawner : MonoBehaviour
             spawnTimer += Time.deltaTime;
             yield return null;
         }
+        // Spawning enemy
         Enemy spawnedEnemy = Instantiate(enemy, spawnTile.position+ Vector3.up, Quaternion.identity) as Enemy;
         spawnedEnemy.onDeath += SpawnedEnemy_onDeath;
+        spawnedEnemy.SetCharist(currentWave.moveSpeed, currentWave.hitsToKillPlayer, currentWave.enemyHealth, currentWave.skinColor);
     }
 
     private void OnPlayerDeath()
@@ -126,8 +142,15 @@ public class Spawner : MonoBehaviour
     [Serializable]
     public class wave
     {
-        public int enemyCount;
+
         public float timeBetweenSpawn;
+        public bool infinite;
+        public int enemyCount;
+        public float moveSpeed;
+        public int hitsToKillPlayer;
+        public float enemyHealth;
+        public Color skinColor;
+
     }
 }
 

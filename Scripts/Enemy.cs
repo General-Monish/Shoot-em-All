@@ -26,28 +26,44 @@ public class Enemy : LivingEntity
     float targetCollisionRadius;
 
     bool hasTarget;
-    // Start is called before the first frame update
-  protected override void Start()
-    {
-        base.Start();
-        pathFinder = GetComponent<NavMeshAgent>();
-        enemySkinMaterial = GetComponent<Renderer>().material;
-        originalColor = enemySkinMaterial.color;
 
-        if ( GameObject.FindGameObjectWithTag("Player") != null) // target exist
+    private void Awake()
+    {
+        pathFinder = GetComponent<NavMeshAgent>();
+        if (GameObject.FindGameObjectWithTag("Player") != null) // target exist
         {
-            currentState = State.chasing;
             hasTarget = true;
             target = GameObject.FindGameObjectWithTag("Player").transform; // finding target pos
             targetEntity = target.GetComponent<LivingEntity>();
-            targetEntity.onDeath += TargetEntity_onDeath; // death event
-
             myCollisionRadius = GetComponent<CapsuleCollider>().radius;
             targetCollisionRadius = target.GetComponent<CapsuleCollider>().radius;
-
+        }
+    }
+    // Start is called before the first frame update
+    protected override void Start()
+    {
+        base.Start();
+        if ( hasTarget) // target exist
+        {
+            currentState = State.chasing;
+            targetEntity.onDeath += TargetEntity_onDeath; // death event
             StartCoroutine(UpdatePath());
         }
-     
+    }
+
+    public void SetCharist(float moveSpeed,int hitstokillPlayer,float enemyHealth ,Color skinColor)
+    {
+        pathFinder.speed = moveSpeed;
+        if (hasTarget)
+        {
+            Playerdamage = Mathf.Ceil(targetEntity.startingHealth / hitstokillPlayer);
+
+        }
+        startingHealth = enemyHealth;
+
+        enemySkinMaterial = GetComponent<Renderer>().material;
+        enemySkinMaterial.color = skinColor;
+        originalColor = enemySkinMaterial.color;
     }
 
     public override void TakeHit(float damage, Vector3 hitPoint, Vector3 hitDirection)

@@ -10,6 +10,7 @@ public class MapGenerator : MonoBehaviour
     public int mapIndex;
     public Transform tilePrefab;
     public Transform obstaclePrefab;
+    public Transform floor1;
     public Transform floor;
     public Transform nevmeshMaskPrefab;
     public Vector2 maxMapSize;
@@ -43,7 +44,7 @@ public class MapGenerator : MonoBehaviour
         CurrentMap = maps[mapIndex];
         tileMap = new Transform[CurrentMap.mapSize.x, CurrentMap.mapSize.y];
         System.Random randomMapGenerator = new System.Random(CurrentMap.seed);
-        GetComponent<BoxCollider>().size = new Vector3(CurrentMap.mapSize.x * tileSize, 0.05f, CurrentMap.mapSize.y * tileSize);
+        
 
         // Generating Cordinates 
         allTileCoords = new List<Cordinate>();
@@ -135,6 +136,7 @@ public class MapGenerator : MonoBehaviour
         maskbottom.localScale = new Vector3(maxMapSize.x, 1, (maxMapSize.y -CurrentMap.mapSize.y) / 2f) * tileSize;
 
         floor.localScale = new Vector3(maxMapSize.x, maxMapSize.y) * tileSize;
+        floor1.localScale= new Vector3(CurrentMap.mapSize.x * tileSize, CurrentMap.mapSize.y * tileSize);
 
     }
 
