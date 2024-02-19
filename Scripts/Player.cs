@@ -9,7 +9,7 @@ public class Player : LivingEntity
    [SerializeField] private float playerSpeed;
     PlayerController playerController;
     Camera viewCamera;
-    public Transform crossHairs;
+    public CrossHair crossHairs;
     GunController gunController;
 
     // Start is called before the first frame update
@@ -30,9 +30,9 @@ public class Player : LivingEntity
         Vector3 moveVelocity = moveInputDir.normalized*playerSpeed;
         playerController.Move(moveVelocity);
 
-        // Mouse Input
+        // Look Input
         Ray ray = viewCamera.ScreenPointToRay(Input.mousePosition);
-        Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
+        Plane groundPlane = new Plane(Vector3.up, Vector3.up*gunController.GunHeight);
         float rayDistance;
 
         if (groundPlane.Raycast(ray, out rayDistance))
@@ -40,7 +40,8 @@ public class Player : LivingEntity
             Vector3 Point = ray.GetPoint(rayDistance);
             //Debug.DrawLine(ray.origin, Point, Color.red);
             playerController.LookAt(Point);
-            crossHairs.position = Point;
+            crossHairs.transform.position = Point;
+            crossHairs.detectTargets(ray);
         }
 
         //Waepon Input
