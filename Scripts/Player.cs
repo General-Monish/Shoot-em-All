@@ -9,6 +9,7 @@ public class Player : LivingEntity
    [SerializeField] private float playerSpeed;
     PlayerController playerController;
     Camera viewCamera;
+    public Transform crossHairs;
     GunController gunController;
 
     // Start is called before the first frame update
@@ -39,6 +40,7 @@ public class Player : LivingEntity
             Vector3 Point = ray.GetPoint(rayDistance);
             //Debug.DrawLine(ray.origin, Point, Color.red);
             playerController.LookAt(Point);
+            crossHairs.position = Point;
         }
 
         //Waepon Input
