@@ -54,6 +54,8 @@ public class Player : LivingEntity
         {
             gunController.OntriggerReleased();
         }
+
+      
         
     }
 

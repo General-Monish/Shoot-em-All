@@ -853,18 +853,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61d1603e0c000604282fccd8fb85b1b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireMode: 0
+  fireMode: 2
   projectileSpawn:
   - {fileID: 2572317635410374830}
   - {fileID: 5259125918743696298}
   - {fileID: 3854802223967662467}
   projectile: {fileID: 5822875583481019224, guid: f584a3df59926864dbd3a8d730fd3056,
     type: 3}
-  msBetweenShots: 100
+  msBetweenShots: 50
   ShootVelocity: 10
   burstCount: 3
+  gunRecoilSettleMoveTime: 0.1
+  projectileMagzine: 10
+  projectileMagzineRemaining: 0
+  isReloading: 0
+  reloadTime: 0.3
   shell: {fileID: 3410832035581102426, guid: 3558a941aa675c94d8fe875b6f87d36a, type: 3}
   shellEjection: {fileID: 9034972271626138882}
+  gunKickBackMinMax: {x: 0.05, y: 0.01}
 --- !u!114 &3404714929117008214
 MonoBehaviour:
   m_ObjectHideFlags: 0
