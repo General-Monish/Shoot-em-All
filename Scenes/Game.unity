@@ -9935,7 +9935,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bed94aed92af2342b1e35944db31906, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingHealth: 9000
+  startingHealth: 10
   Health: 0
   playerSpeed: 5
   crossHairs: {fileID: 1955017165}
@@ -10117,10 +10117,10 @@ MonoBehaviour:
   waves:
   - timeBetweenSpawn: 1
     infinite: 0
-    enemyCount: 5
+    enemyCount: 0
     moveSpeed: 5
-    hitsToKillPlayer: 90
-    enemyHealth: 2
+    hitsToKillPlayer: 5
+    enemyHealth: 1
     skinColor: {r: 0.14764667, g: 1, b: 0, a: 0}
   - timeBetweenSpawn: 1
     infinite: 0
