@@ -864,10 +864,9 @@ MonoBehaviour:
   ShootVelocity: 10
   burstCount: 3
   gunRecoilSettleMoveTime: 0.1
-  projectileMagzine: 10
-  projectileMagzineRemaining: 0
   isReloading: 0
   reloadTime: 0.3
+  shootAudio: {fileID: 8300000, guid: 7da1f0cd3290a2345968d5f0311f7f99, type: 3}
   shell: {fileID: 3410832035581102426, guid: 3558a941aa675c94d8fe875b6f87d36a, type: 3}
   shellEjection: {fileID: 9034972271626138882}
   gunKickBackMinMax: {x: 0.05, y: 0.01}

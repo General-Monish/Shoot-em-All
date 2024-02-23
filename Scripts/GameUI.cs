@@ -40,7 +40,7 @@ public class GameUI : MonoBehaviour
 
     IEnumerator AnimateNewWaveBanner()
     {
-        float delayTime=4f;
+        float delayTime=2f;
         float animatePercent = 0;
         float speed=1f;
         int dir = 1;

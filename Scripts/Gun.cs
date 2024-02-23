@@ -16,6 +16,8 @@ public class Gun : MonoBehaviour
     public bool isReloading;
     public float reloadTime = .3f;
 
+    public AudioClip shootAudio;
+
 
     public Transform shell;
     public Transform shellEjection;
@@ -73,6 +75,7 @@ public class Gun : MonoBehaviour
             Instantiate(shell, shellEjection.position, shellEjection.rotation);
             muzzelFlash.Activate();
             transform.localPosition -= Vector3.forward * Random.Range(gunKickBackMinMax.x,gunKickBackMinMax.y);
+            AudioManager.instance.PlaySound(shootAudio, transform.position);
             //recoilAngle += 20;
             //recoilAngle = Mathf.Clamp(recoilAngle, 0, 30);
         }
