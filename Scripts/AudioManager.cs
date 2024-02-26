@@ -54,6 +54,11 @@ public class AudioManager : MonoBehaviour
         
     }
 
+    public void PlaySound(string soundname , Vector3 position)
+    {
+
+    }
+
     IEnumerator AnimateMusicCrossFire(float duration)
     {
         float percent = 0;
